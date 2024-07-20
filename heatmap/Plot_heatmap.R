@@ -6,7 +6,7 @@ library(dplyr)
 library(RColorBrewer)
 
 # Set the working directory
-setwd("~/Library/CloudStorage/GoogleDrive-filipepts@gmail.com/My Drive/Documents Gdrive/Pinto-Teixeira Lab/Lop manuscript_2023/T4T5_LOP_Connectivity")
+setwd("YOUR_DIRECTORY")
 
 # Read data
 data <- read_excel("T4T5_OUTPUT_NEURONS_SYNAPSES.xlsx", sheet = 1)
