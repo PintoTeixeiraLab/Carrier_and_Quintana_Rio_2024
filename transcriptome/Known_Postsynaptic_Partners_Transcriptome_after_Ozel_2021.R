@@ -9,10 +9,10 @@ library(patchwork)
 library(tidyverse)
 
 # Set working directory to the specified path
-setwd("~/Library/CloudStorage/GoogleDrive-filipepts@gmail.com/My Drive/Documents Gdrive/T4T5 Sequencing/Neset_FULL DATASET_Integrated_VINCENT")
+setwd("YOUR_DIRECTORY")
 
 # Load the Seurat object containing the RNA data
-full_rna = readRDS('rna.total_Heat_Maps.rds')
+full_rna = readRDS('Ozel_2021_Integtated.rds')
 
 # Rename cell identities in the Seurat object
 full_rna <- RenameIdents(full_rna,
