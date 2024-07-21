@@ -12,7 +12,7 @@ library(tidyverse)
 setwd("YOUR_DIRECTORY")
 
 # Load the Seurat object containing the RNA data
-full_rna = readRDS('Ozel_2021_Integtated.rds')
+full_rna = readRDS('Ozel_2021_Integrated.rds')
 
 # Rename cell identities in the Seurat object
 full_rna <- RenameIdents(full_rna,
