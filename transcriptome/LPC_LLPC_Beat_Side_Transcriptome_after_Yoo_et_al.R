@@ -8,7 +8,7 @@ library(patchwork)
 library(tidyverse)
 
 # Set working directory
-setwd("~/Google Drive/My Drive/Documents Gdrive/T4T5 Sequencing/Zipursky FULL dataset_V2")
+setwd("Your_directory")
 
 # Load dataset from Yoo et al., 2023
 dataset_V2 <- read_rds("data_V1.1a.rds")
