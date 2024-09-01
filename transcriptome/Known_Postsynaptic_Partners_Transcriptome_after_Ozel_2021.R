@@ -22,7 +22,9 @@ full_rna <- RenameIdents(full_rna,
                          '44' = 'Y3-like', 
                          '66' = 'LLPC1',
                          '42' = 'TmY5a', 
-                         '75' = 'TmY4')
+                         '75' = 'TmY4',
+                         '148' = 'LPLC1',
+                         '150' = 'LPLC2')
 
 # Update metadata with   time points names and reorder the factor levels
 full_rna@meta.data <- full_rna@meta.data %>% 
