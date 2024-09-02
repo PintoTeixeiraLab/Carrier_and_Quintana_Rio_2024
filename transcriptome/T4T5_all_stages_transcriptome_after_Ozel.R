@@ -63,8 +63,4 @@ Heatmap <- avgexp %>%
   facet_wrap(~subtype, ncol = 1, strip.position = "right") +
   theme_classic() +
   theme(legend.position = "right", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-  theme(axis.title.x = element_blank(), axis.title.y = element_blank()) +
-  coord_cartesian(expand = F) +
-  theme(legend.position = "bottom", legend.justification = "right", legend.box = "horizontal") +
-  theme(text = element_text(size = 11)) +
-  theme(text = element_text(family = "Helvetica"))
+  theme(axis.title.x = element_blank(), axis.title.y = element_blank())
