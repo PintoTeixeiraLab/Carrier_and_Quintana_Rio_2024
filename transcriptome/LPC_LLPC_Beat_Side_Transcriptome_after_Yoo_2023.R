@@ -4,7 +4,6 @@ library(dplyr)
 library(Matrix)
 library(RColorBrewer)
 library(ggplot2)
-library(patchwork)
 library(tidyverse)
 
 # Set working directory
@@ -19,13 +18,16 @@ my_genes <- c("side", "side-II", "side-III", "side-IV", "side-V", "side-VI", "si
               "beat-IIIc", "beat-IV", "beat-Va", "beat-Vb", "beat-Vc", "beat-VI", "beat-VII")
 
 # Create a new column combining time and subtype2
-dataset_V2$newcol <- str_c(dataset_V2$time, dataset_V2$subtype2, sep = ".")
+dataset_V2$newcol <- paste(dataset_V2$time, dataset_V2$subtype2, sep = ".")
 
 # Compute average expression and create Seurat object
 avgexp.obj <- AverageExpression(dataset_V2, return.seurat = TRUE, group.by = 'newcol')
 
+# Define genes_in_data as those present in both my_genes and the dataset
+genes_in_data <- my_genes[my_genes %in% rownames(avgexp.obj)]
+
 # Subset Seurat object using genes_in_data
-avgexp.obj.sub <- subset(avgexp.obj, features = my_genes[genes_in_data])
+avgexp.obj.sub <- subset(avgexp.obj, features = genes_in_data)
 
 # Prepare data for plotting
 avgexp <- avgexp.obj.sub@assays$RNA@data %>% 
@@ -41,13 +43,14 @@ avgexp$time <- factor(avgexp$time, levels = c("24", "36", "48", "60", "72", "84"
                       labels = c("P24", "P36", "P48", "P60", "P72", "P84", "P96"))
 
 # Filter data for plotting
+genes_present <- genes_in_data  # Ensure genes_present is defined
 plot_data <- avgexp %>%
   filter(Feature %in% genes_present, subtype2 %in% c("LPC2", "LLPC2", "LLPC3"))
 
 # Generate the heatmap plot
 heatmap <- ggplot(plot_data, aes(x = Feature, y = time, fill = Expression)) +
   geom_raster() +
-  scale_fill_gradientn(colors = rev(RColorBrewer::brewer.pal(n = 9, name = "RdBu"))) +
+  scale_fill_gradientn(colors = rev(RColorBrewer::brewer.pal(n = 11, name = "RdBu"))) +
   facet_wrap(~subtype2, ncol = 1, strip.position = "right") +
   scale_y_discrete(name = "Time") +
   theme_classic() +
@@ -55,9 +58,5 @@ heatmap <- ggplot(plot_data, aes(x = Feature, y = time, fill = Expression)) +
         axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
-        strip.text.y = element_text(angle = 0)) +
-  coord_cartesian(expand = FALSE) +
-  theme(legend.position = "none")
-
-# Print the plot
-print(heatmap)
+        strip.text.y = element_text(angle = -90)) +
+  coord_cartesian(expand = FALSE)
