@@ -5,9 +5,7 @@ library(dplyr)
 library(Matrix)
 library(RColorBrewer)
 library(ggplot2)
-library(patchwork)
 library(tidyverse)
-library(svglite)
 
 # Set working directory to the specified path
 setwd("~/Library/CloudStorage/GoogleDrive-filipepts@gmail.com/My Drive/Documents Gdrive/T4T5 Sequencing/Neset_T4T5ONLY_INTEGRATED_VINCENT")
