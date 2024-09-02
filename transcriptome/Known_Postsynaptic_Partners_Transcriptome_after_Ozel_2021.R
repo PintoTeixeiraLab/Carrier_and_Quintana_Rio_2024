@@ -1,11 +1,9 @@
-
 # Load necessary libraries
 library(Seurat)
 library(dplyr)
 library(Matrix)
 library(RColorBrewer)
 library(ggplot2)
-library(patchwork)
 library(tidyverse)
 
 # Set working directory to the specified path
@@ -38,6 +36,8 @@ full_rna@meta.data <- full_rna@meta.data %>%
   mutate(time = forcats::fct_relevel(time, "Adult", after = Inf)) %>%  # Reorder factors to place "Adult" at the end
   mutate(celltype = Idents(full_rna))  # Add cell type information to metadata
 
+
+
 # Determine whether to plot all cell types or a subset
 full_celltype = FALSE
 
@@ -45,7 +45,7 @@ if (full_celltype) {
   my_celltypes = unique(full_rna@meta.data$celltype)
   subset_rna = full_rna
 } else {
-  my_celltypes = c("Lpi4-3", "Lpi3-4", "TmY14", "Y3-like", "LLPC1", "TmY5a", "TmY4")
+  my_celltypes = c("Lpi4-3", "Lpi3-4", "TmY14", "Y3-like", "LLPC1","LPLC1","LPLC2", "TmY5a", "TmY4")
   subset_rna = subset(full_rna, idents = my_celltypes)
 }
 
@@ -118,10 +118,9 @@ Heatmap <- avgexp %>%
   mutate(celltype = factor(celltype, levels = my_celltypes)) %>%
   ggplot(aes(x = Feature, y = time, fill = Expression)) +
   geom_raster() +
-  scale_fill_gradientn(colors = rev(RColorBrewer::brewer.pal(n = 9, name = "RdBu"))) +
+  scale_fill_gradientn(colors = rev(RColorBrewer::brewer.pal(n = 11, name = "RdBu"))) +
   facet_wrap(~celltype, ncol = 1, strip.position = "right") +
   theme_classic() +
   theme(legend.position = "right", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
   theme(axis.title.x = element_blank(), axis.title.y = element_blank()) +
-  coord_cartesian(expand = FALSE) +
-  theme(legend.position = "none")
+  coord_cartesian(expand = FALSE)
