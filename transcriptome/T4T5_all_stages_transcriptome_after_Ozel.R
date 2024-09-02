@@ -7,11 +7,11 @@ library(RColorBrewer)
 library(ggplot2)
 library(tidyverse)
 
-# Set working directory to the specified path
-setwd("~/Library/CloudStorage/GoogleDrive-filipepts@gmail.com/My Drive/Documents Gdrive/T4T5 Sequencing/Neset_T4T5ONLY_INTEGRATED_VINCENT")
+# Set working directory
+setwd("Your_directory")
 
 # Read in the Seurat object
-T4T5_all_stages <- readRDS("rna.total.rds")
+T4T5_all_stages <- readRDS("T4T5_all_stages.rds")
 
 # Modify metadata to change Time labels
 T4T5_all_stages@meta.data <- T4T5_all_stages@meta.data %>%
@@ -59,7 +59,7 @@ Heatmap <- avgexp %>%
   mutate(subtype = factor(subtype, levels = vector_subtypes_to_plot)) %>%
   ggplot(aes(x = Feature, y = time, fill = Expression)) +
   geom_raster() +
-  scale_fill_gradientn(colors = rev(RColorBrewer::brewer.pal(n = 9, name = "RdBu"))) +
+  scale_fill_gradientn(colors = rev(RColorBrewer::brewer.pal(n = 11, name = "RdBu"))) +
   facet_wrap(~subtype, ncol = 1, strip.position = "right") +
   theme_classic() +
   theme(legend.position = "right", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
@@ -67,5 +67,4 @@ Heatmap <- avgexp %>%
   coord_cartesian(expand = F) +
   theme(legend.position = "bottom", legend.justification = "right", legend.box = "horizontal") +
   theme(text = element_text(size = 11)) +
-  theme(text = element_text(family = "Helvetica")) +
-  theme(legend.position = "none") # Remove legend from the plot
+  theme(text = element_text(family = "Helvetica"))
