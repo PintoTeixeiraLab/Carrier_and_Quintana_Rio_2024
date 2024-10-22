@@ -90,3 +90,5 @@ heatmap_cellname_output <- ggplot(summed_data, aes(x = Output, y = cell_name, fi
 print(heatmap_cellname_output)
 
 
+
+
